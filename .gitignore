@@ -1,0 +1,61 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Flask cache files
+instance/
+*.db
+*.sqlite3
+
+# Environment variables
+.env
+.env.*
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# macOS
+.DS_Store
+
+# VS Code settings
+.vscode/
+
+# Log files
+*.log
+
+# Coverage reports
+htmlcov/
+.coverage
+.tox/
+.nox/
+.cache/
+pytest_cache/
+
+# MyPy and other type checkers
+.mypy_cache/
+.dmypy.json
+.pyre/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Build and distribution
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Static and compiled assets (optional)
+staticfiles/
+*.sass-cache
+
+# Gunicorn / uWSGI PID files
+*.pid

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lingopal Web Caller</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-pink-100 flex items-center justify-center text-gray-800">
+    <div class="bg-white rounded-2xl shadow-2xl border border-gray-200 max-w-md w-full p-8 text-center">
+      <!-- Header -->
+      <div class="mb-6">
+        <h1 class="text-2xl sm:text-3xl font-bold text-pink-600">📞 Lingopal Web Caller</h1>
+        <p class="text-sm text-gray-500 mt-2">Real-time test calling interface</p>
+      </div>
+
+      <!-- Message -->
+      {% if message %}
+        <div class="mb-4 px-4 py-2 text-sm rounded-lg {{ 'bg-green-100 text-green-800' if 'Call initiated' in message else 'bg-red-100 text-red-800' }}">
+          {{ message }}
+        </div>
+      {% endif %}
+
+      <!-- Form -->
+      <form method="POST">
+        <!-- Hidden input for hangup tracking -->
+        <input type="hidden" id="actionType" name="action" value="call" />
+
+        <!-- Phone number input -->
+        <input
+          id="phoneInput"
+          name="to"
+          type="tel"
+          placeholder="+1XXXXXXXXXX"
+          required
+          class="w-full mb-4 px-4 py-3 text-lg font-mono text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400"
+        />
+
+        <!-- Numpad -->
+        <div class="grid grid-cols-3 gap-3 mb-6">
+          {% for num in ['1','2','3','4','5','6','7','8','9','+','0','←'] %}
+            <button
+              type="button"
+              onclick="handleNumpad('{{ num }}')"
+              class="bg-gray-100 hover:bg-gray-200 text-lg font-semibold p-4 rounded-xl shadow-sm transition"
+            >
+              {{ num }}
+            </button>
+          {% endfor %}
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          <button
+            type="submit"
+            onclick="document.getElementById('actionType').value = 'call';"
+            class="w-full py-3 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-full shadow-md transition"
+          >
+            <i class="fas fa-phone"></i> Call
+          </button>
+          <button
+            type="submit"
+            onclick="document.getElementById('actionType').value = 'hangup';"
+            class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full shadow-md transition"
+          >
+            <i class="fas fa-phone-slash"></i> Hang Up
+          </button>
+        </div>
+      </form>
+
+      <!-- Footer -->
+      <p class="mt-6 text-xs text-gray-400">
+        Powered by Twilio & Lingopal • {{ now().year }}
+      </p>
+    </div>
+
+    <!-- JS logic for numpad -->
+    <script>
+      function handleNumpad(value) {
+        const input = document.getElementById("phoneInput");
+        if (value === "←") {
+          input.value = input.value.slice(0, -1);
+        } else {
+          input.value += value;
+        }
+        input.focus();
+      }
+
+      // Optional: Automatically focus input for keyboard typing
+      document.getElementById("phoneInput").focus();
+    </script>
+  </body>
+</html>
