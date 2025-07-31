@@ -56,13 +56,21 @@ def index():
 @app.route("/voice", methods=["GET", "POST"])
 def voice():
     response = VoiceResponse()
+
+    # Add a pause of 10 seconds before any speech
+    response.pause(length=10)
+
+    # Gather input after pause
     gather = response.gather(
         num_digits=1,
         action=request.url_root.rstrip("/") + "/gather",
         method="POST"
     )
     gather.say("Hello! This is Lingopal Web Caller. Press 1 for sales. Press 2 for support.", voice="alice")
+
+    # Say goodbye if no input is received
     response.say("We didn't receive any input. Goodbye!", voice="alice")
+
     return str(response)
 
 
